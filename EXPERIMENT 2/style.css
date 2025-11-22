@@ -1,0 +1,141 @@
+:root {
+  --brand-hex: #1e6f9f;
+  --muted-rgb: rgb(100, 116, 139);
+  --glass-rgba: rgba(139, 92, 246, 0.12);
+  --accent-hsl: hsl(260, 80%, 64%);
+  --bg: #f4f6fb;
+  --card: #ffffff;
+  --ink: #0f172a;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  padding: 20px;
+  line-height: 1.6;
+}
+
+header#about-header {
+  background: linear-gradient(180deg, var(--brand-hex), var(--accent-hsl));
+  padding: 40px 20px;
+  text-align: center;
+  color: white;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.lead {
+  color: var(--muted-rgb);
+  max-width: 700px;
+  margin: auto;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+}
+
+.card {
+  background: var(--card);
+  padding: 18px;
+  margin-bottom: 18px;
+  border-radius: 10px;
+  border: 1px solid var(--glass-rgba);
+}
+
+.section-title {
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+}
+
+.member[data-role] {
+  border-left: 4px solid var(--brand-hex);
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+
+/* Movie list */
+.movies {
+  list-style: none;
+  padding-left: 0;
+}
+
+.movies li {
+  background: #fff;
+  border: 1px dashed #dfe5f3;
+  padding: 8px 10px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  transition: 0.2s;
+}
+
+.movies li:hover {
+  color: var(--brand-hex);
+  transform: translateX(4px);
+}
+
+.movies li.fav {
+  background: linear-gradient(
+    90deg,
+    rgba(30, 111, 159, 0.08),
+    rgba(139, 92, 246, 0.08)
+  );
+  font-weight: bold;
+  position: relative;
+}
+
+.movies li.fav::before {
+  content: "★";
+  color: var(--brand-hex);
+  position: absolute;
+  left: -10px;
+  top: 8px;
+}
+
+/* Cities list */
+.cities {
+  counter-reset: city;
+  list-style: none;
+  padding-left: 0;
+}
+
+.cities li {
+  counter-increment: city;
+  padding: 10px 10px 10px 40px;
+  margin-bottom: 10px;
+  background: #fff;
+  border-radius: 6px;
+  position: relative;
+  border: 1px solid #e3e8f4;
+}
+
+.cities li::before {
+  content: counter(city);
+  background: var(--brand-hex);
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.cities li:hover {
+  background: #f8fbff;
+}
+
+/* footer */
+.site-footer {
+  text-align: center;
+  color: var(--muted-rgb);
+  margin-top: 20px;
+}

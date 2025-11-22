@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Experiment 2 — About Us</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <header id="about-header">
+      <h1>About NovaTech Atelier</h1>
+      <p class="lead">
+        A simple About Us page created for practicing CSS selectors and color
+        formats.
+      </p>
+    </header>
+
+    <main class="container">
+      <!-- Section: Who we are -->
+      <section id="who" class="card">
+        <h2 class="section-title">Who We Are</h2>
+        <p>
+          We are a small team learning front-end development. This page includes
+          examples of element, class, ID, attribute, pseudo-class, and
+          pseudo-element selectors.
+        </p>
+
+        <h3>Core Values</h3>
+        <ul class="values">
+          <li>Keep it simple</li>
+          <li>Write clean code</li>
+          <li>Learn by doing</li>
+        </ul>
+      </section>
+
+      <!-- Section: Team -->
+      <section id="team" class="card">
+        <h2 class="section-title">Team</h2>
+
+        <article class="member" data-role="lead">
+          <h3>Riya Patel</h3>
+          <small>Team Lead</small>
+          <p>Helps guide the team and ensures work stays organized.</p>
+        </article>
+
+        <article class="member" data-role="engineer">
+          <h3>Adil Khan</h3>
+          <small>Engineer</small>
+          <p>Builds features and experiments with new ideas.</p>
+        </article>
+      </section>
+
+      <!-- Movies List -->
+      <section id="movies" class="card">
+        <h2 class="section-title">Favorite Movies (Unordered List)</h2>
+        <p>One movie is my favorite and styled uniquely.</p>
+
+        <ul class="movies">
+          <li>Spirited Away</li>
+          <li class="fav">The Grand Budapest Hotel</li>
+          <li>Moonrise Kingdom</li>
+          <li>The Secret Life of Walter Mitty</li>
+        </ul>
+      </section>
+
+      <!-- Cities List -->
+      <section id="cities" class="card">
+        <h2 class="section-title">Cities I Want to Visit (Ordered List)</h2>
+        <p>Each number is styled using pseudo-elements.</p>
+
+        <ol class="cities">
+          <li>Kyoto</li>
+          <li>Lisbon</li>
+          <li>Reykjavík</li>
+          <li>Vancouver</li>
+        </ol>
+      </section>
+
+      <!-- Notes -->
+      <section id="notes" class="card">
+        <h2 class="section-title">Notes</h2>
+        <p>
+          Colors used: <strong>HEX</strong>, <strong>RGB</strong>,
+          <strong>RGBA</strong>, <strong>HSL</strong>.
+        </p>
+        <p class="small">
+          Hover on list items to see pseudo-class effects. Pseudo-elements also
+          used for special markers.
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Student Experiment — B.Tech, GLA University (2024–2028)</p>
+    </footer>
+  </body>
+</html>
