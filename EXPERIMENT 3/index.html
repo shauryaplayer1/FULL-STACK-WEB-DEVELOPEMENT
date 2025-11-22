@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Experiment 3 — Sidebar, Product Cards & Flexbox Blog</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar">
+    <h2 class="brand">ShopLab</h2>
+    <nav>
+      <ul>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#blogs">Blogs</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- ================ MAIN CONTENT ================ -->
+  <main class="content">
+
+    <!-- ---------------- Products ---------------- -->
+    <section id="products" class="section">
+      <h1 class="section-title">Our Products</h1>
+      <p class="intro">
+        A simple product card layout showing margin, padding, border and box-shadow.
+      </p>
+
+      <div class="products">
+
+        <!-- Card 1 -->
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=700&auto=format&fit=crop&q=60" alt="Sneakers">
+          <h3>Modern Sneakers</h3>
+          <p class="desc">Comfortable and stylish sneakers for everyday wear.</p>
+          <button class="buy-btn">Buy Now</button>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1637412173653-de70428ee3ce?q=80&w=687&auto=format&fit=crop" alt="Smart Watch">
+          <h3>Smart Watch</h3>
+          <p class="desc">Track your health and stay connected with ease.</p>
+          <button class="buy-btn">Buy Now</button>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1592921870789-04563d55041c?q=80&w=687&auto=format&fit=crop" alt="Earbuds">
+          <h3>Wireless Earbuds</h3>
+          <p class="desc">Experience crisp sound with noise cancellation.</p>
+          <button class="buy-btn">Buy Now</button>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ---------------- Blog Grid ---------------- -->
+    <section id="blogs" class="section">
+      <h1 class="section-title">Latest Blogs</h1>
+      <p class="intro">A 3-column responsive blog layout using Flexbox.</p>
+
+      <div class="blog-grid">
+        <div class="blog-card">
+          <img src="https://images.unsplash.com/photo-1642132652806-8aa09801c2ab" alt="Blog Image">
+          <h3>How to Build Responsive UI</h3>
+          <p>Learn tips and tricks to make your websites adapt beautifully on any device.</p>
+          <div class="read-more">Read More</div>
+        </div>
+
+        <div class="blog-card">
+          <img src="https://images.unsplash.com/photo-1581291519195-ef11498d1cf5" alt="Blog Image">
+          <h3>Designing with Flexbox</h3>
+          <p>Flexbox is a powerful layout tool. Here’s how you can use it effectively.</p>
+          <div class="read-more">Read More</div>
+        </div>
+
+        <div class="blog-card">
+          <img src="https://images.unsplash.com/photo-1503602642458-232111445657" alt="Blog Image">
+          <h3>E-commerce UI Tips</h3>
+          <p>Boost your sales with a clean and user-friendly product card design.</p>
+          <div class="read-more">Read More</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="section">
+      <h2>About This Experiment</h2>
+      <p>
+        This experiment covers sidebar layout, box model, and Flexbox-based 3-column blog grid with media queries.
+      </p>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section">
+      <h2>Contact</h2>
+      <p>Email: student@example.com</p>
+    </section>
+
+  </main>
+
+</body>
+</html>
