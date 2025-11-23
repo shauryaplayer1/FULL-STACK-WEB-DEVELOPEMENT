@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Random Joke Generator — Promises</title>
+  <style>
+    :root{font-family:Inter,Segoe UI,Roboto,Arial,sans-serif}
+    body{background:#f5f7fb;color:#0b1220;padding:28px}
+    .card{max-width:680px;background:white;padding:18px;border-radius:12px;box-shadow:0 8px 24px rgba(11,18,32,0.06)}
+    h1{font-size:20px;margin:0 0 12px}
+    .joke{padding:14px;border-radius:10px;background:#fbfdff;border:1px solid #eef4ff;min-height:92px;display:flex;flex-direction:column;gap:8px}
+    .setup{font-weight:600}
+    .punchline{color:#0b72ff;font-weight:700}
+    .controls{display:flex;align-items:center;gap:12px;margin-top:12px}
+    button{background:#0b72ff;color:#fff;border:0;padding:8px 12px;border-radius:8px;cursor:pointer}
+    button:disabled{opacity:.6;cursor:not-allowed}
+    .muted{color:#606f7b;font-size:13px}
+    .spinner{width:18px;height:18px;border-radius:50%;border:3px solid rgba(0,0,0,0.08);border-top-color:#0b72ff;animation:spin 1s linear infinite;display:inline-block}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .error{color:#c53030;font-weight:700}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Random Joke Generator (Promises)</h1>
+    <p class="muted">Fetches a joke from the Official Joke API using <code>.then()</code> / <code>.catch()</code>.</p>
+
+    <div class="joke" id="jokeBox">
+      <div id="setup" class="setup">—</div>
+      <div id="punchline" class="punchline">Click <strong>Next Joke</strong> to start.</div>
+    </div>
+
+    <div class="controls">
+      <button id="nextBtn">Next Joke</button>
+      <div id="spinner" style="display:none" class="spinner" aria-hidden="true"></div>
+      <div id="status" class="muted">Idle</div>
+    </div>
+  </div>
+
+  <script>
+    // Promise-based fetch implementation using .then() and .catch()
+    const API = 'https://official-joke-api.appspot.com/random_joke';
+    const nextBtn = document.getElementById('nextBtn');
+    const spinner = document.getElementById('spinner');
+    const status = document.getElementById('status');
+    const setupEl = document.getElementById('setup');
+    const punchEl = document.getElementById('punchline');
+
+    function setLoading(isLoading) {
+      if (isLoading) {
+        spinner.style.display = 'inline-block';
+        status.textContent = 'Fetching joke...';
+        nextBtn.disabled = true;
+      } else {
+        spinner.style.display = 'none';
+        status.textContent = 'Ready';
+        nextBtn.disabled = false;
+      }
+    }
+
+    function showError(message) {
+      setupEl.textContent = '';
+      punchEl.textContent = message;
+      punchEl.classList.add('error');
+    }
+
+    function clearErrorStyle() {
+      punchEl.classList.remove('error');
+    }
+
+    function fetchJoke() {
+      setLoading(true);
+      clearErrorStyle();
+
+      // Using fetch with .then() and .catch()
+      fetch(API, { cache: 'no-store' })
+        .then(response => {
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          return response.json();
+        })
+        .then(joke => {
+          // Update UI
+          setupEl.textContent = joke.setup || '—';
+          punchEl.textContent = joke.punchline || '—';
+          status.textContent = 'Joke loaded';
+        })
+        .catch(err => {
+          console.error('Failed to fetch joke', err);
+          showError('Failed to load joke. Try again.');
+          status.textContent = 'Error';
+        })
+        .finally(() => {
+          // Re-enable button regardless of success/failure
+          setLoading(false);
+        });
+    }
+
+    nextBtn.addEventListener('click', fetchJoke);
+    // Load one initially
+    window.addEventListener('DOMContentLoaded', () => fetchJoke());
+  </script>
+</body>
+</html>
