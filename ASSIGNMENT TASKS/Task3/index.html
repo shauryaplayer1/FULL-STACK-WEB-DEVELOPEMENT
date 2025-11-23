@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Task 3 & 4 — Carousel & Form Validation</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="page">
+    <h1>Task 3: Image Carousel</h1>
+
+    <section class="carousel-wrap">
+      <div class="carousel" id="carousel">
+        <!-- images will be shown here -->
+        <img src="https://picsum.photos/id/1015/800/420" alt="Slide 1" class="active">
+        <img src="https://picsum.photos/id/1016/800/420" alt="Slide 2">
+        <img src="https://picsum.photos/id/1018/800/420" alt="Slide 3">
+        <img src="https://picsum.photos/id/1025/800/420" alt="Slide 4">
+        <img src="https://picsum.photos/id/1032/800/420" alt="Slide 5">
+      </div>
+
+      <div class="carousel-controls">
+        <button id="prevBtn" class="btn">Previous</button>
+        <button id="nextBtn" class="btn">Next</button>
+      </div>
+      <p class="note">The slideshow changes automatically every 3 seconds. Hover over the image to pause.</p>
+    </section>
+
+    <hr>
+
+    <h1>Task 4: Registration Form (Validation)</h1>
+
+    <section class="form-wrap">
+      <form id="regForm" novalidate>
+        <div class="field">
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" />
+          <small class="error" id="nameError"></small>
+        </div>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" />
+          <small class="error" id="emailError"></small>
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" />
+          <small class="error" id="passwordError"></small>
+        </div>
+
+        <button type="submit" class="btn submit">Register</button>
+        <p id="formMessage" class="form-message"></p>
+      </form>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
