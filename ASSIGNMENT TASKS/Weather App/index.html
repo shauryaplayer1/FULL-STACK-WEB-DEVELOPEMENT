@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Weather (Open-Meteo + Nominatim) — No API Key</title>
+  <style>
+    :root{font-family:Inter,Segoe UI,Roboto,Arial,sans-serif}
+    body{background:#f5f7fb;color:#0b1220;padding:28px}
+    .card{max-width:780px;background:white;padding:22px;border-radius:12px;box-shadow:0 8px 24px rgba(11,18,32,0.06)}
+    h1{font-size:22px;margin:0 0 12px}
+    .row{display:flex;gap:12px;margin-bottom:12px}
+    input{flex:1;padding:10px;border-radius:8px;border:1px solid #d0d7e1;font-size:15px}
+    button{background:#0b72ff;color:#fff;border:0;padding:10px 14px;border-radius:8px;cursor:pointer;font-size:15px}
+    button:disabled{opacity:.6;cursor:not-allowed}
+    .result{margin-top:16px;padding:16px;border-radius:10px;background:#fbfdff;border:1px solid #eef4ff;min-height:80px}
+    .muted{font-size:13px;color:#6c7480}
+    .error{color:#c53030;font-weight:700}
+    .spinner{width:18px;height:18px;border-radius:50%;border:3px solid rgba(0,0,0,0.08);border-top-color:#0b72ff;animation:spin 1s linear infinite;display:inline-block}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    pre{white-space:pre-wrap;word-break:break-word;background:#fff;padding:8px;border-radius:6px;border:1px solid #eef2f6}
+    .small{font-size:13px;color:#556}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Weather (Open-Meteo + Nominatim)</h1>
+    <p class="muted">Free, no API key required. Geocodes the city then fetches current weather.</p>
+
+    <div class="row">
+      <input id="cityInput" placeholder="Enter city name (e.g. Mathura)" />
+      <button id="searchBtn">Search</button>
+    </div>
+
+    <div class="row" style="align-items:center;gap:8px;margin-bottom:0">
+      <div id="spinner" style="display:none" class="spinner" aria-hidden="true"></div>
+      <div id="status" class="muted">Idle</div>
+    </div>
+
+    <div id="result" class="result">Enter a city to begin.</div>
+
+    <details style="margin-top:12px">
+      <summary class="muted">Debug info</summary>
+      <div style="margin-top:8px" class="small">
+        Network requests and raw JSON are printed to the DevTools console for debugging.
+      </div>
+    </details>
+  </div>
+
+  <script>
+    // Endpoints (no key required)
+    const GEOCODE_URL = "https://nominatim.openstreetmap.org/search";
+    const OPEN_METEO_URL = "https://api.open-meteo.com/v1/forecast";
+
+    const cityInput = document.getElementById("cityInput");
+    const searchBtn = document.getElementById("searchBtn");
+    const resultBox = document.getElementById("result");
+    const spinner = document.getElementById("spinner");
+    const statusText = document.getElementById("status");
+
+    function setLoading(isLoading){
+      if(isLoading){
+        spinner.style.display = "inline-block";
+        searchBtn.disabled = true;
+        statusText.textContent = "Fetching...";
+      } else {
+        spinner.style.display = "none";
+        searchBtn.disabled = false;
+        statusText.textContent = "Ready";
+      }
+    }
+
+    function showError(msg){
+      resultBox.innerHTML = `<div class="error">${escapeHtml(msg)}</div>`;
+    }
+    function showResult(html){
+      resultBox.innerHTML = html;
+    }
+    function escapeHtml(str){
+      return String(str).replace(/[&<>"']/g, s => ({
+        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+      })[s]);
+    }
+
+    // Map Open-Meteo weathercode -> short description (basic)
+    const WEATHER_CODE_MAP = {
+      0: "Clear sky",
+      1: "Mainly clear",
+      2: "Partly cloudy",
+      3: "Overcast",
+      45: "Fog",
+      48: "Depositing rime fog",
+      51: "Light drizzle",
+      53: "Moderate drizzle",
+      55: "Dense drizzle",
+      56: "Light freezing drizzle",
+      57: "Dense freezing drizzle",
+      61: "Slight rain",
+      63: "Moderate rain",
+      65: "Heavy rain",
+      66: "Light freezing rain",
+      67: "Heavy freezing rain",
+      71: "Slight snow fall",
+      73: "Moderate snow fall",
+      75: "Heavy snow fall",
+      77: "Snow grains",
+      80: "Slight rain showers",
+      81: "Moderate rain showers",
+      82: "Violent rain showers",
+      85: "Slight snow showers",
+      86: "Heavy snow showers",
+      95: "Thunderstorm",
+      96: "Thunderstorm with slight hail",
+      99: "Thunderstorm with heavy hail"
+    };
+
+    async function fetchJson(url){
+      const res = await fetch(url);
+      const txt = await res.text();
+      let data;
+      try { data = JSON.parse(txt); } catch(e) { data = txt; }
+      return { status: res.status, ok: res.ok, body: data, raw: txt };
+    }
+
+    async function fetchWeather(){
+      const city = cityInput.value.trim();
+      if(!city){
+        showError("Please enter a city name.");
+        return;
+      }
+
+      setLoading(true);
+      showResult(`Looking up coordinates for <strong>${escapeHtml(city)}</strong>...`);
+
+      try {
+        // 1) Geocode using Nominatim
+        // Add "addressdetails=1" only if needed; we use format=json and limit=1
+        const geourl = `${GEOCODE_URL}?q=${encodeURIComponent(city)}&format=json&limit=1`;
+        console.log("DEBUG - Geocode URL:", geourl);
+        const geo = await fetchJson(geourl);
+        console.log("DEBUG - Geocode response:", geo);
+
+        if(!geo.ok) throw new Error(`Geocoding failed (HTTP ${geo.status}).`);
+        if(!Array.isArray(geo.body) || geo.body.length === 0) {
+          throw new Error("City not found. Try a different spelling or add a country (e.g. 'Paris, FR').");
+        }
+
+        const place = geo.body[0];
+        const lat = parseFloat(place.lat);
+        const lon = parseFloat(place.lon);
+        const displayName = place.display_name || city;
+
+        // 2) Open-Meteo current weather
+        const oneurl = `${OPEN_METEO_URL}?latitude=${lat}&longitude=${lon}&current_weather=true&timezone=auto`;
+        console.log("DEBUG - Open-Meteo URL:", oneurl);
+        const om = await fetchJson(oneurl);
+        console.log("DEBUG - Open-Meteo response:", om);
+
+        if(!om.ok) throw new Error(`Weather fetch failed (HTTP ${om.status}). Raw: ${om.raw}`);
+
+        const cw = om.body.current_weather;
+        if(!cw) throw new Error("No current_weather in Open-Meteo response.");
+
+        const temp = cw.temperature;
+        const wind = cw.windspeed;
+        const code = cw.weathercode;
+        const desc = WEATHER_CODE_MAP[code] || `Code ${code}`;
+
+        showResult(`
+          <div><strong>Location:</strong> ${escapeHtml(displayName)}</div>
+          <div><strong>Temperature:</strong> ${temp} °C</div>
+          <div><strong>Wind speed:</strong> ${wind} km/h</div>
+          <div><strong>Condition:</strong> ${escapeHtml(desc)}</div>
+          <hr style="margin:12px 0" />
+          <div class="small">Debug: check console for raw JSON responses (geocoding & Open-Meteo).</div>
+        `);
+
+        statusText.textContent = "Weather loaded";
+
+      } catch (err) {
+        console.error(err);
+        showError(err.message || "Failed to fetch weather.");
+        statusText.textContent = "Error";
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    searchBtn.addEventListener("click", fetchWeather);
+    cityInput.addEventListener("keyup", e => { if(e.key === "Enter") fetchWeather(); });
+
+    // optional: prefill a city for quick testing
+    // cityInput.value = "Mathura";
+    // window.addEventListener('DOMContentLoaded', () => fetchWeather());
+  </script>
+</body>
+</html>
