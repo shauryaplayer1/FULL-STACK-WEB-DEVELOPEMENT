@@ -1,0 +1,97 @@
+/* Dark gradient background (beginner level) */
+:root {
+  --dark-1: #0b1220;
+  --dark-2: #081226;
+  --accent: #1abc9c;
+  --muted: #9aa6b2;
+}
+
+/* page base */
+html,body {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(180deg, var(--dark-1), var(--dark-2));
+  color: #fff;
+}
+
+/* NAVBAR tweaks */
+.navbar {
+  background: transparent !important;
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+}
+.nav-link {
+  color: rgba(255,255,255,0.85) !important;
+  transition: color 0.25s ease, transform 0.18s ease, letter-spacing 0.18s ease;
+}
+.nav-link:hover {
+  color: var(--accent) !important;
+  transform: translateY(-2px);
+  letter-spacing: 0.6px;
+}
+
+/* HERO area */
+.hero {
+  padding: 2.2rem 0 1.2rem;
+  position: relative;
+  overflow: visible;
+  margin-bottom: 0.8rem;
+}
+
+/* astronaut floating (simple keyframe) */
+.astronaut {
+  display:block;
+  margin: 0.8rem auto 0;
+  animation: float 3s ease-in-out infinite;
+}
+
+/* rocket moving slowly left to right and repeating */
+.rocket-wrap {
+  position: absolute;
+  right: -80px;
+  top: 60px;
+  width: 120px;
+  pointer-events: none;
+  animation: rocket-move 6s linear infinite;
+  opacity: 0.95;
+}
+
+/* keep the rocket smaller on small screens */
+@media (max-width: 700px) {
+  .rocket-wrap { display:none; } /* hide rocket on very small devices (simple) */
+}
+
+/* keyframes */
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes rocket-move {
+  0% { transform: translateX(0) rotate(0deg); }
+  50% { transform: translateX(-90px) rotate(-6deg); }
+  100% { transform: translateX(0) rotate(0deg); }
+}
+
+/* carousel spacing */
+.carousel { margin-top: 1rem; }
+
+/* cards area */
+.card {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+}
+
+footer { border-top: 1px solid rgba(255,255,255,0.03); }
+
+
+.lead, .intro { color: var(--muted); }
+
+
+a:focus, button:focus {
+  outline: 3px solid rgba(26,188,156,0.18);
+  outline-offset: 3px;
+}

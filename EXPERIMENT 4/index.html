@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Experiment 4 — Space Theme (Beginner)</title>
+
+  <!-- Bootstrap CSS (stable CDN) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Your custom styles -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-transparent px-4">
+    <div class="container">
+      <a class="navbar-brand" href="#">SpaceLab</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link hover-link" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link hover-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link hover-link" href="#features">Features</a></li>
+          <li class="nav-item"><a class="nav-link hover-link" href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO with inline SVG astronaut and animated rocket -->
+  <header class="hero">
+    <div class="hero-inner container text-center">
+      <h1 class="display-5 text-white mb-2">SpaceLab — Beginner Animation Practice</h1>
+      <p class="lead text-light mb-4">A simple dark gradient landing page with easy animations and Bootstrap basics.</p>
+
+      <!-- astronaut SVG (inline so it never fails to load) -->
+      <div class="astronaut-wrap" aria-hidden="true">
+        <!-- simple friendly astronaut SVG (small and lightweight) -->
+        <svg class="astronaut" width="120" height="120" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="astronaut">
+          <circle cx="32" cy="20" r="8" fill="#fff"/>
+          <rect x="20" y="28" width="24" height="20" rx="3" fill="#e6eef8"/>
+          <circle cx="28" cy="18" r="3" fill="#0f172a" opacity="0.1"/>
+          <rect x="14" y="44" width="36" height="6" rx="3" fill="#dbe7f7"/>
+        </svg>
+      </div>
+
+      <!-- rocket SVG that will slide across -->
+      <div class="rocket-wrap" aria-hidden="true">
+        <svg class="rocket" width="80" height="80" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+          <path d="M32 2c6 0 12 6 12 12 0 8-8 18-12 24-4-6-12-16-12-24C20 8 26 2 32 2z" fill="#ff6f61"/>
+          <rect x="26" y="28" width="12" height="18" rx="3" fill="#fff"/>
+          <polygon points="26,46 32,54 38,46" fill="#ffb86b"/>
+        </svg>
+      </div>
+    </div>
+  </header>
+
+  <!-- BOOTSTRAP CAROUSEL (simple) -->
+  <div id="heroCarousel" class="carousel slide mt-4" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?q=80&w=1600&auto=format&fit=crop" class="d-block w-100" alt="space scene" style="height:320px; object-fit:cover;">
+      </div>
+      <div class="carousel-item">
+        <img src="https://images.unsplash.com/photo-1454789548928-9efd52dc4031?q=80&w=1600&auto=format&fit=crop" class="d-block w-100" alt="galaxy" style="height:320px; object-fit:cover;">
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about" class="container text-light mt-5">
+    <h2>About</h2>
+    <p>This is a student-level project demonstrating simple animations (keyframes), hover transitions, and basic Bootstrap components (navbar, grid, carousel, cards).</p>
+  </section>
+
+  <!-- FEATURES / CARDS -->
+  <section id="features" class="container mt-4 mb-5">
+    <h2 class="text-light mb-3">Features</h2>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <div class="card h-100">
+          <img src="https://images.unsplash.com/photo-1473920114239-e7d2291618ef?q=80&w=800&auto=format&fit=crop" class="card-img-top" alt="feature" style="height:160px; object-fit:cover;">
+          <div class="card-body">
+            <h5 class="card-title">Rocket Launch</h5>
+            <p class="card-text">A simple Bootstrap card showing image, text and box model styles.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card h-100">
+          <img src="https://images.unsplash.com/photo-1447433819943-74a20887a81e?q=80&w=800&auto=format&fit=crop" class="card-img-top" alt="feature" style="height:160px; object-fit:cover;">
+          <div class="card-body">
+            <h5 class="card-title">Training</h5>
+            <p class="card-text">Grid-based layout and responsive columns using Bootstrap.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card h-100">
+          <img src="https://images.unsplash.com/photo-1462332420958-a05d1e002413?q=80&w=800&auto=format&fit=crop" class="card-img-top" alt="feature" style="height:160px; object-fit:cover;">
+          <div class="card-body">
+            <h5 class="card-title">Exploration</h5>
+            <p class="card-text">Simple and beginner-friendly card components.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="contact" class="bg-dark text-center text-light py-3">
+    © 2025 SpaceLab — Student Experiment 4 — B.Tech, GLA University
+  </footer>
+
+  <!-- Bootstrap JS (bundle) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
