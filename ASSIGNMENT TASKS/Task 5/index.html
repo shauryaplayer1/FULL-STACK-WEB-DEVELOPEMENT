@@ -1,0 +1,44 @@
+<!-- index.html -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Product Filter (Beginner)</title>
+<style>
+/* Very simple styles so a 2nd-year student could understand */
+body{font-family:Arial,Helvetica,sans-serif;padding:20px;background:#f4f4f4}
+.container{max-width:800px;margin:0 auto;background:#fff;padding:16px;border-radius:6px}
+h1{font-size:20px}
+.controls{margin:12px 0}
+button{padding:8px 12px;margin-right:6px;cursor:pointer}
+input[type="search"]{padding:8px;width:60%;margin-left:8px}
+.product{border:1px solid #ddd;padding:8px;border-radius:4px;margin:8px 0;background:#fafafa}
+.muted{color:#666;font-size:13px}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Simple Product Filter</h1>
+<p class="muted">Beginner-friendly: HTML + separate JavaScript file. Click a category button to filter. Use search to filter by name.</p>
+
+
+<div class="controls">
+<button id="btn-all">All</button>
+<button id="btn-electronics">Electronics</button>
+<button id="btn-clothing">Clothing</button>
+<input id="search" type="search" placeholder="Search products...">
+</div>
+
+
+<div id="product-list" aria-live="polite"></div>
+
+
+<p class="muted" id="count">Showing 0 products</p>
+</div>
+
+
+<!-- Link to the separate JavaScript file -->
+<script src="script.js"></script>
+</body>
+</html>
